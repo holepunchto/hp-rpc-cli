@@ -1,0 +1,23 @@
+{
+  "name": "hp-rpc-cli",
+  "version": "0.0.1",
+  "description": "Holepunch RPC Cli",
+  "main": "index.js",
+  "dependencies": {
+    "@hyperswarm/rpc": "^3.2.1",
+    "minimist": "^1.2.5"
+  },
+  "bin": {
+    "hp-rpc-cli": "./client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holepunchto/hp-rpc-cli.git"
+  },
+  "author": "Paolo Ardoino (@prdn)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/holepunchto/hp-rpc-cli/issues"
+  },
+  "homepage": "https://github.com/holepunchto/hp-rpc-cli"
+}

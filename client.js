@@ -4,7 +4,7 @@ const libKeys = require('@hyper-cmd/lib-keys')
 
 const argv = require('minimist')(process.argv.slice(2))
 
-const helpMsg = 'Usage:\nhp-rpc-cli ?-i identity.json ?-s peer_key -m method -d data'
+const helpMsg = 'Usage:\nhp-rpc-cli ?-i identity.json ?-s peer_key -m method -d data ?-t timeout_ms'
 
 if (argv.help) {
   console.log(helpMsg)

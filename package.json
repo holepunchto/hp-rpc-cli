@@ -5,6 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "@hyperswarm/rpc": "^3.2.1",
+    "@hyper-cmd/lib-keys": "https://github.com/holepunchto/hyper-cmd-lib-keys#v0.0.2",
+    "@hyper-cmd/lib-utils": "https://github.com/holepunchto/hyper-cmd-lib-utils#v0.0.2",
     "minimist": "^1.2.5"
   },
   "bin": {

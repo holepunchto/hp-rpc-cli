@@ -55,4 +55,5 @@ const client = rpc.connect(Buffer.from(argv.s, 'hex'));
   })
 
   console.log(res.toString())
+  process.exit(-1)
 })()

@@ -1,10 +1,11 @@
+const fs = require('fs')
 const RPC = require('@hyperswarm/rpc')
 const libUtils = require('@hyper-cmd/lib-utils')
 const libKeys = require('@hyper-cmd/lib-keys')
 
 const argv = require('minimist')(process.argv.slice(2))
 
-const helpMsg = 'Usage:\nhp-rpc-cli ?-i identity.json ?-s peer_key -m method -d data ?-t timeout_ms'
+const helpMsg = 'Usage:\nhp-rpc-cli ?-i identity.json ?-s peer_key -m method -d data (| -f data_file) ?-t timeout_ms'
 
 if (argv.help) {
   console.log(helpMsg)
@@ -21,9 +22,14 @@ if (!argv.m) {
   process.exit(-1)
 }
 
-if (!argv.d) {
+if (!argv.d && !argv.f) {
   console.error('Error: data invalid')
   process.exit(-1)
+}
+
+if (argv.f) {
+  const fpath = argv.f
+  argv.d = fs.readFileSync(fpath)
 }
 
 let keyPair = null

@@ -1,3 +1,7 @@
+#!/usr/bin/env node
+
+'use strict'
+
 const fs = require('fs')
 const RPC = require('@hyperswarm/rpc')
 const libUtils = require('@hyper-cmd/lib-utils')

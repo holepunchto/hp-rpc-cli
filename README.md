@@ -20,4 +20,5 @@ Options:
 ```
 
 Read more about using identities here: https://github.com/prdn/hyper-cmd-docs/blob/main/identity.md
+
 Host resolution: https://github.com/prdn/hyper-cmd-docs/blob/main/resolve.md

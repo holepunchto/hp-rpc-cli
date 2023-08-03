@@ -17,6 +17,10 @@ if (!argv.s) {
   process.exit(-1)
 }
 
+if (argv.s) {
+  argv.s = libUtils.resolveHostToKey([], argv.s)
+}
+
 if (!argv.m) {
   console.error('Error: method invalid')
   process.exit(-1)

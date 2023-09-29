@@ -6,7 +6,7 @@ A basic command-line client for hyperswarm/rpc
 hp-rpc-cli --help
 
 Usage:
-hp-rpc-cli ?-i identity.json ?-s peer_key -m method -d data (| -f data_file) ?-t timeout_ms ?-dp dht_port ?-bn dht_bootstrap_nodes ?-ds dht_keypair_seed
+hp-rpc-cli ?-i identity.json ?-s peer_key -m method -d data (| -f data_file) ?-t timeout_ms ?--dp dht_port ?--bn dht_bootstrap_nodes ?--ds dht_keypair_seed
 ```
 
 Options:

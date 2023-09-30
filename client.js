@@ -94,6 +94,9 @@ const main = async () => {
     console.log(res.toString())
 
     await rpc.destroy()
+    if (dht) {
+      await dht.destroy()
+    }
 
     process.exit(0)
   } catch (err) {

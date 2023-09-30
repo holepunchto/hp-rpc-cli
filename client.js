@@ -92,6 +92,9 @@ const main = async () => {
     })
 
     console.log(res.toString())
+
+    await rpc.destroy()
+
     process.exit(0)
   } catch (err) {
     console.error(err)

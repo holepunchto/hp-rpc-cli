@@ -10,7 +10,7 @@ const libKeys = require('hyper-cmd-lib-keys')
 
 const argv = require('minimist')(process.argv.slice(2))
 
-const helpMsg = 'Usage:\nhp-rpc-cli ?-i identity.json ?-s peer_key -m method -d data (| -f data_file) ?-t timeout_ms ?--dp dht_port ?--bn dht_bootstrap_nodes ?--ds dht_keypair_seed'
+const helpMsg = 'Usage:\nhp-rpc-cli ?-i identity.json ?-s peer_key ?--cp capability -m method -d data (| -f data_file) ?-t timeout_ms ?--dp dht_port ?--bn dht_bootstrap_nodes ?--ds dht_keypair_seed'
 
 if (argv.help) {
   console.log(helpMsg)
@@ -72,6 +72,11 @@ if (!argv.t) {
   argv.t = 5000
 }
 
+const connectOpts = {}
+if (argv.cp) {
+  connectOpts.capability = Buffer.from(argv.cp, 'hex')
+}
+
 const main = async () => {
   try {
     let dht
@@ -85,7 +90,7 @@ const main = async () => {
       keyPair
     })
 
-    const client = rpc.connect(Buffer.from(argv.s, 'hex'))
+    const client = rpc.connect(Buffer.from(argv.s, 'hex'), connectOpts)
 
     const res = await client.request(argv.m, Buffer.from(argv.d), {
       timeout: argv.t

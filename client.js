@@ -5,8 +5,8 @@
 const fs = require('fs')
 const DHT = require('hyperdht')
 const RPC = require('@hyperswarm/rpc')
-const libUtils = require('@hyper-cmd/lib-utils')
-const libKeys = require('@hyper-cmd/lib-keys')
+const libUtils = require('hyper-cmd-lib-utils')
+const libKeys = require('hyper-cmd-lib-keys')
 
 const argv = require('minimist')(process.argv.slice(2))
 

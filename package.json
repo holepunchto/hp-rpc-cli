@@ -3,12 +3,16 @@
   "version": "0.0.5",
   "description": "Holepunch RPC Cli",
   "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
   "dependencies": {
-    "@hyper-cmd/lib-keys": "https://github.com/holepunchto/hyper-cmd-lib-keys#v0.0.2",
-    "@hyper-cmd/lib-utils": "https://github.com/holepunchto/hyper-cmd-lib-utils#v0.0.2",
-    "@hyperswarm/rpc": "^3.2.1",
-    "hyperdht": "^6.6.2",
-    "minimist": "^1.2.5"
+    "@hyperswarm/rpc": "^3.4.0",
+    "hyper-cmd-lib-keys": "^0.2.0",
+    "hyper-cmd-lib-utils": "^0.1.0",
+    "hyperdht": "^6.23.0",
+    "minimist": "^1.2.8"
   },
   "bin": {
     "hp-rpc-cli": "./client.js"
@@ -22,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/holepunchto/hp-rpc-cli/issues"
   },
-  "homepage": "https://github.com/holepunchto/hp-rpc-cli"
+  "homepage": "https://github.com/holepunchto/hp-rpc-cli",
+  "devDependencies": {
+    "standard": "17.1.2"
+  }
 }

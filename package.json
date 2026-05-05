@@ -1,6 +1,6 @@
 {
   "name": "hp-rpc-cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Holepunch RPC Cli",
   "main": "index.js",
   "scripts": {

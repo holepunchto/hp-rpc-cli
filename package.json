@@ -1,6 +1,6 @@
 {
   "name": "hp-rpc-cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Holepunch RPC Cli",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "hyper-cmd-lib-keys": "^0.2.0",
     "hyper-cmd-lib-utils": "^0.1.0",
     "hyperdht": "^6.23.0",
-    "minimist": "^1.2.8"
+    "paparam": "^1.10.1"
   },
   "bin": {
     "hp-rpc-cli": "./client.js"

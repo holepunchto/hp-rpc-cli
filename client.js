@@ -7,44 +7,57 @@ const DHT = require('hyperdht')
 const RPC = require('@hyperswarm/rpc')
 const libUtils = require('hyper-cmd-lib-utils')
 const libKeys = require('hyper-cmd-lib-keys')
+const { command, flag, summary } = require('paparam')
 
-const argv = require('minimist')(process.argv.slice(2))
+const cmd = command(
+  'hp-rpc-cli',
+  summary('Holepunch RPC Cli'),
+  flag('-i [identity]', 'identity file (e.g. identity.json)'),
+  flag('-s [peer]', 'peer key'),
+  flag('--cp [capability]', 'capability (hex)'),
+  flag('-m [method]', 'rpc method'),
+  flag('-d [data]', 'rpc data payload'),
+  flag('-f [file]', 'rpc data payload from file'),
+  flag('-t [timeout]', 'request timeout in ms').default(5000),
+  flag('--dp [port]', 'dht port'),
+  flag('--bn [nodes]', 'dht bootstrap nodes (comma separated)'),
+  flag('--ds [seed]', 'dht keypair seed (hex)')
+)
 
-const helpMsg = 'Usage:\nhp-rpc-cli ?-i identity.json ?-s peer_key ?--cp capability -m method -d data (| -f data_file) ?-t timeout_ms ?--dp dht_port ?--bn dht_bootstrap_nodes ?--ds dht_keypair_seed'
+const parsed = cmd.parse()
 
-if (argv.help) {
-  console.log(helpMsg)
+if (parsed === null) {
   process.exit(-1)
 }
 
-if (!argv.s) {
+const flags = parsed.flags
+
+if (!flags.s) {
   console.error('Error: peer invalid')
   process.exit(-1)
 }
 
-if (argv.s) {
-  argv.s = libUtils.resolveHostToKey([], argv.s)
-}
+const peerKey = libUtils.resolveHostToKey([], flags.s)
 
-if (!argv.m) {
+if (!flags.m) {
   console.error('Error: method invalid')
   process.exit(-1)
 }
 
-if (!argv.d && !argv.f) {
+if (!flags.d && !flags.f) {
   console.error('Error: data invalid')
   process.exit(-1)
 }
 
-if (argv.f) {
-  const fpath = argv.f
-  argv.d = fs.readFileSync(fpath)
+let data = flags.d
+if (flags.f) {
+  data = fs.readFileSync(flags.f)
 }
 
 let keyPair = null
 
-if (argv.i) {
-  keyPair = libUtils.resolveIdentity([], argv.i)
+if (flags.i) {
+  keyPair = libUtils.resolveIdentity([], flags.i)
 
   if (!keyPair) {
     console.error('Error: identity file invalid')
@@ -56,25 +69,23 @@ if (argv.i) {
 
 const dhtOpts = {}
 
-if (argv.bn) {
-  dhtOpts.bootstrap = argv.bn.split(',').map(n => n.trim())
+if (flags.bn) {
+  dhtOpts.bootstrap = flags.bn.split(',').map(n => n.trim())
 }
 
-if (argv.dp) {
-  dhtOpts.port = +argv.dp
+if (flags.dp) {
+  dhtOpts.port = +flags.dp
 }
 
-if (argv.ds) {
-  dhtOpts.keyPair = DHT.keyPair(Buffer.from(argv.ds, 'hex'))
+if (flags.ds) {
+  dhtOpts.keyPair = DHT.keyPair(Buffer.from(flags.ds, 'hex'))
 }
 
-if (!argv.t) {
-  argv.t = 5000
-}
+const timeout = +flags.t
 
 const connectOpts = {}
-if (argv.cp) {
-  connectOpts.capability = Buffer.from(argv.cp, 'hex')
+if (flags.cp) {
+  connectOpts.capability = Buffer.from(flags.cp.toString(), 'hex')
 }
 
 const main = async () => {
@@ -90,10 +101,10 @@ const main = async () => {
       keyPair
     })
 
-    const client = rpc.connect(Buffer.from(argv.s, 'hex'), connectOpts)
+    const client = rpc.connect(Buffer.from(peerKey, 'hex'), connectOpts)
 
-    const res = await client.request(argv.m, Buffer.from(argv.d), {
-      timeout: argv.t
+    const res = await client.request(flags.m, Buffer.from(data), {
+      timeout
     })
 
     console.log(res.toString())
